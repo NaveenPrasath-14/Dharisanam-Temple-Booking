@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dharisanam - Temple Booking</title>
+  <link rel="icon" type="text/css" href="./images/devote.jpg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="logo">
+      <span>ॐ</span> Dharisanam
+    </div>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#temples">Temples</a>
+      <a href="#booking">Booking</a>
+      <a href="#prasadam">Prasadam</a>
+      <a href="#history">History</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <div class="badge">
+        ✦ Divine Darshan Made Simple
+      </div>
+      <h1>
+        Find Your Temple.<br>
+        <span>Book Your Darshan.</span>
+      </h1>
+      <p>
+        Discover sacred temples across India and
+        book your darshan from one simple place.
+      </p>
+      <button onclick="goTemples()">
+        Explore Temples →
+      </button>
+    </div>
+  </section>
+
+  <!-- TEMPLE SEARCH -->
+  <section id="temples" class="section">
+    <div class="heading">
+      <span>DISCOVER</span>
+      <h2>Find a Temple</h2>
+      <p>Search by temple name or city</p>
+    </div>
+    <div class="search-box">
+      <span>⌕</span>
+      <input
+        id="search"
+        type="text"
+        placeholder="Search temple or city..."
+      >
+      <button onclick="searchTemples()">
+        Search
+      </button>
+    </div>
+    <div id="templeList" class="temple-grid">
+      <div class="empty-state">
+        <div>🛕</div>
+        <h3>Search for a Temple</h3>
+        <p>
+          Enter a temple name or city above
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOKING -->
+  <section id="booking" class="section">
+    <div class="heading">
+      <span>BOOK NOW</span>
+      <h2>Darshan Booking</h2>
+      <p>
+        Complete your details and choose your darshan
+      </p>
+    </div>
+    <div class="booking-layout">
+      <div class="booking-card">
+        <div class="selected-temple" id="selectedTemple">
+          <div class="temple-icon">
+            🛕
+          </div>
+          <div>
+            <small>SELECTED TEMPLE</small>
+            <strong>No temple selected</strong>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="field">
+            <label>Devotee Name</label>
+            <input
+              id="name"
+              type="text"
+              placeholder="Enter your name"
+            >
+          </div>
+          <div class="field">
+            <label>Mobile Number</label>
+            <input
+              id="mobile"
+              type="text"
+              placeholder="Enter mobile number"
+            >
+          </div>
+          <div class="field">
+            <label>Darshan Date</label>
+            <input
+              id="date"
+              type="date"
+            >
+          </div>
+          <div class="field">
+            <label>Time Slot</label>
+            <select id="slot">
+              <option value="">
+                Select time
+              </option>
+              <option>
+                06:00 AM - 08:00 AM
+              </option>
+              <option>
+                09:00 AM - 11:00 AM
+              </option>
+              <option>
+                04:00 PM - 06:00 PM
+              </option>
+              <option>
+                06:00 PM - 08:00 PM
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="option-title">
+          Choose Darshan Type
+        </div>
+        <div class="darshan-options">
+          <label class="darshan-card">
+            <input
+              type="radio"
+              name="darshan"
+              value="Regular"
+              data-price="0"
+            >
+            <div>
+              <strong>Regular</strong>
+              <small>Standard Darshan</small>
+            </div>
+            <b>Free</b>
+          </label>
+          <label class="darshan-card">
+            <input
+              type="radio"
+              name="darshan"
+              value="Special"
+              data-price="100"
+            >
+            <div>
+              <strong>Special</strong>
+              <small>Priority Darshan</small>
+            </div>
+            <b>₹100</b>
+          </label>
+          <label class="darshan-card">
+            <input
+              type="radio"
+              name="darshan"
+              value="VIP"
+              data-price="250"
+            >
+            <div>
+              <strong>VIP</strong>
+              <small>Premium Darshan</small>
+            </div>
+            <b>₹250</b>
+          </label>
+        </div>
+      </div>
+
+      <!-- SUMMARY -->
+      <div class="summary-card">
+        <div class="summary-title">
+          <div>
+            <span>YOUR BOOKING</span>
+            <h3>Summary</h3>
+          </div>
+          <div class="summary-symbol">
+            ॐ
+          </div>
+        </div>
+        <div id="bill">
+          <div class="summary-row">
+            <span>Temple</span>
+            <b>Not selected</b>
+          </div>
+          <div class="summary-row">
+            <span>Darshan</span>
+            <b>Not selected</b>
+          </div>
+          <div class="summary-row">
+            <span>Prasadam</span>
+            <b>₹0</b>
+          </div>
+          <div class="summary-total">
+            <span>Total</span>
+            <strong>₹0</strong>
+          </div>
+        </div>
+        <button
+          class="confirm-btn"
+          onclick="book()"
+        >
+          Confirm Booking
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRASADAM -->
+  <section id="prasadam" class="section">
+    <div class="heading">
+      <span>OPTIONAL</span>
+      <h2>Temple Prasadam</h2>
+      <p>
+        Add prasadam only if you need it
+      </p>
+    </div>
+    <div id="prasadamList" class="prasadam-grid"></div>
+    <div class="cart-card">
+      <div class="cart-header">
+        <div>
+          <span>YOUR SELECTION</span>
+          <h3>Prasadam Cart</h3>
+        </div>
+        <div id="cartCount" class="cart-count">
+          0 items
+        </div>
+      </div>
+      <div id="cartList">
+        <div class="empty-cart">
+          <span>🛍️</span>
+          <p>No prasadam selected</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HISTORY -->
+  <section id="history" class="section">
+    <div class="heading">
+      <span>MY BOOKINGS</span>
+      <h2>Booking History</h2>
+      <p>
+        Your previous darshan bookings
+      </p>
+    </div>
+    <div id="historyList"></div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">
+      <span>ॐ</span> Dharisanam
+    </div>
+    <p>
+      Making temple darshan simple and peaceful.
+    </p>
+    <div class="footer-line"></div>
+    <small>
+      © 2026 Dharisanam.
+    </small>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
